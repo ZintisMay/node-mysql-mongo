@@ -3,20 +3,24 @@ require('dotenv').config();
 
 var mysql = require('mysql');
 
-
-console.log("MYSQLDB_CONN")
+console.log()
+console.log("process.env.MYSQLDB_CONN")
 console.log(process.env.MYSQLDB_CONN)
 console.log(process.env.MYSQLDB_PASS)
 console.log(process.env.MYSQLDB_USER)
 
-var con = mysql.createConnection({
+var MySqlClient = mysql.createConnection({
   host: process.env.MYSQLDB_CONN,
   password: process.env.MYSQLDB_PASS,
   user: process.env.MYSQLDB_USER,
+  database: process.env.MYSQLDB_DB_NAME,
   port: 3306
 });
 
-con.connect(function(err) {
+MySqlClient.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+	console.log()
+  console.log("MySQL connected!");
 });
+
+module.exports = MySqlClient;

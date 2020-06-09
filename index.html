@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Index</title>
+    <title>Index</title>
 </head>
+
 <body>
-	/static/Index.html
+    /static/Index.html
+    <button id="sendPost">Send Post</button>
+    <script type="text/javascript">
+    const sendPost = document.getElementById("sendPost")
+    console.log(fetch)
+
+
+    fetch("/dummyData")
+    	.then(data=>data.json())
+    	.then(res=>console.log(res))
+    	.catch(error=>console.log(error))
+
+
+    sendPost.addEventListener('click', () => {
+    	const data = { "name": "Zintis", "id": 23 }
+    	const dataJSON = JSON.stringify(data)
+    	console.log(!!JSON.parse(dataJSON))
+        fetch(
+          '/post', {
+              headers: {
+	                // 'Accept': 'application/json',
+	      					'Content-Type': 'application/json'
+              },
+              body: dataJSON,
+              method: "POST"
+          }
+        )
+        .then(data => data.json())
+        .then(res => console.log(res))
+        .catch(error => console.log(error))
+    })
+    </script>
 </body>
+
 </html>
